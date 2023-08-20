@@ -14,11 +14,12 @@ public class SpawnSliders : MonoBehaviour {
 
     void Start() {
         view = GetComponent<PhotonView>();
-        transform.localPosition = Vector3.zero;
-        transform.localScale = new Vector3(0.1f, 0.1f, 1f);
-        for(int i = 0; i < 4; i++) {
-            GameObject sliderGameObject = PhotonNetwork.Instantiate(sliderPrefab.name, Vector3.zero, Quaternion.identity);
-            view.RPC("SetValues", RpcTarget.AllBuffered, sliderGameObject.GetComponent<PhotonView>().ViewID, i);
+        view.RPC("SyncTransform", RpcTarget.AllBuffered);
+        if (view.IsMine) {
+            for(int i = 0; i < 4; i++) {
+                GameObject sliderGameObject = PhotonNetwork.Instantiate(sliderPrefab.name, Vector3.zero, Quaternion.identity);
+                view.RPC("SetValues", RpcTarget.AllBuffered, sliderGameObject.GetComponent<PhotonView>().ViewID, i);
+            }
         }
     }
 
@@ -29,5 +30,11 @@ public class SpawnSliders : MonoBehaviour {
         sliderObject.transform.localScale = new Vector3(scale, scale, scale);
         sliderObject.transform.rotation = Quaternion.Euler(rotations[index]);
         sliderObject.GetComponent<Slider>().positions = positions[index];
+    }
+
+    [PunRPC]
+    void SyncTransform() {
+        transform.localPosition = Vector3.zero;
+        transform.localScale = new Vector3(0.1f, 0.1f, 1f);
     }
 }

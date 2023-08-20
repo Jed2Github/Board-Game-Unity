@@ -11,11 +11,14 @@ public class Draggable : MonoBehaviour {
     bool dragging = true;
     public int count = 0;
     PhotonView view;
+    GameObject player;
 
     void Start() {
         view = GetComponent<PhotonView>();
         if(!view.IsMine) {
             dragging = false;
+        } else {
+            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, GameObject.FindWithTag("Player").GetComponent<PhotonView>().ViewID);
         }
     }
 
@@ -30,8 +33,12 @@ public class Draggable : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                 Debug.Log("is token");
             }
-            view.RPC("SyncPositions", RpcTarget.OthersBuffered, transform.position);
+            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, GameObject.FindWithTag("Player").GetComponent<PhotonView>().ViewID);
         }
+    }
+    
+    void OnMouseUp() {
+        view.RPC("UnSyncPlayers", RpcTarget.OthersBuffered);
     }
 
     void Update() {
@@ -41,7 +48,6 @@ public class Draggable : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                 Debug.Log("is token");
             }
-            view.RPC("SyncPositions", RpcTarget.AllBuffered, transform.position);
         }
 
         if(Input.GetMouseButtonDown(0)) {
@@ -49,11 +55,21 @@ public class Draggable : MonoBehaviour {
             if(count < 2)
                 return;
             dragging = false;
+            view.RPC("UnSyncPlayers", RpcTarget.OthersBuffered);
+        }
+
+        if(player != null) {
+            transform.position = player.transform.position;
         }
     }
 
     [PunRPC] 
-    void SyncPositions(Vector3 position) {
-        transform.position = position;
+    void SyncPlayers(int playerID) {
+        player = PhotonView.Find(playerID).gameObject;
+    }
+
+    [PunRPC]
+    void UnSyncPlayers() {
+        player = null;
     }
 }

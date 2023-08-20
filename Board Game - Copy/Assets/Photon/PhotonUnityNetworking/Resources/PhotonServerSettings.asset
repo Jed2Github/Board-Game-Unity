@@ -43,6 +43,11 @@ MonoBehaviour:
   - SetColour
   - SyncPositions
   - SetValues
+  - SyncPosition
+  - SyncTransform
+  - SetParent
+  - SyncPlayers
+  - UnSyncPlayers
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

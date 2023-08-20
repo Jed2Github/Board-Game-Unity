@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         view = GetComponent<PhotonView>();
         transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = view.Owner.NickName;
+        if(view.IsMine) {
+            gameObject.tag = "Player";
+        }
     }
 
     void Update() {

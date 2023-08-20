@@ -5,9 +5,19 @@ using Photon.Pun;
 
 public class CardController : MonoBehaviour {
     public GameObject sliderSpawner;
+    PhotonView view;
 
     void Start() {
-        GameObject sliderSpawnerGameObject = PhotonNetwork.Instantiate(sliderSpawner.name, Vector3.zero, Quaternion.identity);
-        sliderSpawnerGameObject.transform.parent = transform;
+        view = GetComponent<PhotonView>();
+        if(view.IsMine) {
+            GameObject sliderSpawnerGameObject = PhotonNetwork.Instantiate(sliderSpawner.name, Vector3.zero, Quaternion.identity);
+            view.RPC("SetParent", RpcTarget.AllBuffered, sliderSpawnerGameObject.GetComponent<PhotonView>().ViewID);
+        }
+    }
+
+    [PunRPC]
+    void SetParent(int childID) {
+        Transform child = PhotonView.Find(childID).transform;
+        child.parent = transform;
     }
 }

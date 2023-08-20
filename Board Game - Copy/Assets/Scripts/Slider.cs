@@ -44,6 +44,10 @@ public class Slider : MonoBehaviour {
             isBeingDragged = true;
         }
     }
+    
+    void OnMouseUp() {
+        view.RPC("SyncPosition", RpcTarget.AllBuffered, transform.position);
+    }
 
     void Update() {
         if(isBeingDragged) {
@@ -61,6 +65,11 @@ public class Slider : MonoBehaviour {
         if(Input.GetMouseButtonUp(0) && isBeingDragged) {
             isBeingDragged = false;
         }
+    }
+
+    [PunRPC]
+    void SyncPosition(Vector3 position) {
+        transform.position = position;
     }
 
     void OnMouseEnter() {
