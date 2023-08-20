@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TileController : MonoBehaviour
 {
@@ -16,8 +17,14 @@ public class TileController : MonoBehaviour
     Transform bottomLeft;
     Transform topLeft;
 
+    PhotonView view;
+
     void Start() {
         GetComponent<SpriteRenderer>().sprite = tile;
+        view = GetComponent<PhotonView>();
+        if(view.IsMine) {
+            view.RPC("SetSprite", RpcTarget.OthersBuffered, GetComponent<SpriteRenderer>().sprite);
+        }
 
         topRight = transform.GetChild(0);
         bottomRight = transform.GetChild(1);
@@ -59,5 +66,10 @@ public class TileController : MonoBehaviour
         foreach(Transform child in transform) {
             Gizmos.DrawSphere(child.position, distance);
         }
+    }
+
+    [PunRPC]
+    void SetSprite(Sprite sprite) {
+        GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }

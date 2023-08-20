@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using TMPro;
 
 public class ItemController : MonoBehaviour {
     public Item item;
+    PhotonView view;
 
     Transform GFX;
 
     void Start() {
-        GFX = transform.GetChild(0);
+        view = GetComponent<PhotonView>();
+        if(view.IsMine) {
+            view.RPC("SetSprite", RpcTarget.OthersBuffered, transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite);
+        }
+    }
 
-        GFX.GetChild(2).gameObject.GetComponent<SpriteRenderer>().sprite = item.image;
-        GFX.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = item.name;
-        GFX.GetChild(1).gameObject.GetComponent<TextMeshPro>().text = item.description;
+    [PunRPC]
+    void SetSprite(Sprite sprite) {
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }

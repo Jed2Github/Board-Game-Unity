@@ -12,13 +12,21 @@ public class Draggable : MonoBehaviour {
     public int count = 0;
     PhotonView view;
     GameObject player;
+    GameObject thisPlayer;
+    GameObject[] players;
 
     void Start() {
         view = GetComponent<PhotonView>();
+        players = GameObject.FindGameObjectsWithTag("Player");
+        for(int i = 0; i < players.Length; i++) {
+            if(players[i].GetComponent<PhotonView>().IsMine)
+                thisPlayer = players[i];
+        }
         if(!view.IsMine) {
             dragging = false;
         } else {
-            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, GameObject.FindWithTag("Player").GetComponent<PhotonView>().ViewID);
+            Debug.Log(thisPlayer);
+            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
         }
     }
 
@@ -33,7 +41,7 @@ public class Draggable : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x, transform.position.y, -1);
                 Debug.Log("is token");
             }
-            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, GameObject.FindWithTag("Player").GetComponent<PhotonView>().ViewID);
+            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
         }
     }
     
