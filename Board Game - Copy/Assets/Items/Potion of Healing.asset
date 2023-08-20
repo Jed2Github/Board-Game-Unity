@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b78f59d908eb543a4d29444ba5dc1e, type: 3}
+  m_Name: Potion of Healing
+  m_EditorClassIdentifier: 
+  name: POTION OF HEALING
+  description: INCREASE ONE CARD'S HEALTH BY 2 OR 3 CARDS BY 1 EACH
+  image: {fileID: 21300000, guid: 57615a4c3d1b749439df5f67d7c527ac, type: 3}
