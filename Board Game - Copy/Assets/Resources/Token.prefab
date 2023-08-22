@@ -104,6 +104,8 @@ MonoBehaviour:
   startDrag: 0
   smoothing: 0.4
   count: 0
+  view: {fileID: 0}
+  thisPlayer: {fileID: 0}
 --- !u!58 &5223069638427715094
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class UICardController : MonoBehaviour {
+public class UIItemController : MonoBehaviour {
     public GameObject itemPrefab;
+    public int itemIndex;
 
     public void PlaceCardDown() {
         GameObject itemGameObject = PhotonNetwork.Instantiate(itemPrefab.name, Vector3.zero, Quaternion.identity);
-        itemGameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
+        itemGameObject.GetComponent<ItemController>().itemIndex = itemIndex;
         itemGameObject.GetComponent<Draggable>().count = 1;
         Destroy(gameObject);
     }

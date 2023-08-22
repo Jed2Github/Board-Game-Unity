@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class TileController : MonoBehaviour
 {
-    public Sprite tile;
+    public int tileIndex;
 
     public float distance;
 
@@ -20,10 +20,9 @@ public class TileController : MonoBehaviour
     PhotonView view;
 
     void Start() {
-        GetComponent<SpriteRenderer>().sprite = tile;
         view = GetComponent<PhotonView>();
         if(view.IsMine) {
-            view.RPC("SetSprite", RpcTarget.OthersBuffered, GetComponent<SpriteRenderer>().sprite);
+            view.RPC("SetSprite", RpcTarget.AllBuffered, tileIndex);
         }
 
         topRight = transform.GetChild(0);
@@ -47,15 +46,17 @@ public class TileController : MonoBehaviour
                     }
                 }
                 if(other != null) {
-                    Debug.Log("yes2");
-                    Debug.Log(other == positioner);
+                    GetComponent<Draggable>().view.RPC("UnSyncPlayers", RpcTarget.AllBuffered);
                     if (other != positioner && other.gameObject.name != positioner.gameObject.name) {
                         Debug.Log(other);
                         Debug.Log(other.parent);
                         Vector3 offset = other.position - positioner.position;
                         Debug.Log("yes");
                         transform.position += offset;
+                        view.RPC("SyncPositions", RpcTarget.AllBuffered, transform.position);
                         break;
+                    } else {
+                        GetComponent<Draggable>().view.RPC("SyncPlayers", RpcTarget.AllBuffered, GetComponent<Draggable>().thisPlayer.GetComponent<PhotonView>().ViewID);
                     }
                 }
             }
@@ -69,7 +70,12 @@ public class TileController : MonoBehaviour
     }
 
     [PunRPC]
-    void SetSprite(Sprite sprite) {
-        GetComponent<SpriteRenderer>().sprite = sprite;
+    void SetSprite(int index) {
+        GetComponent<SpriteRenderer>().sprite = GameObject.FindWithTag("Tile Deck").GetComponent<TileDeckController>().possibleTiles[index];
+    }
+
+    [PunRPC] 
+    void SyncPositions(Vector3 position) {
+        transform.position = position;
     }
 }

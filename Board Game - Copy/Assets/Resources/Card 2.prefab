@@ -135,6 +135,8 @@ MonoBehaviour:
   startDrag: 0
   smoothing: 0.1
   count: 0
+  view: {fileID: 0}
+  thisPlayer: {fileID: 0}
 --- !u!61 &4266923472823147279
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,4 +197,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca460442abc99c40800e4e66f49e09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardIndex: 0
   sliderSpawner: {fileID: 8223671250246091934, guid: d5ae081410147f344980689d5e4f94f1, type: 3}

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8916143201891090707}
   - component: {fileID: 1321672768065947608}
   - component: {fileID: 8598700882468646939}
+  - component: {fileID: 1357786698536444858}
   m_Layer: 0
   m_Name: Item 2
   m_TagString: Untagged
@@ -135,6 +136,8 @@ MonoBehaviour:
   startDrag: 1
   smoothing: 0.4
   count: 0
+  view: {fileID: 0}
+  thisPlayer: {fileID: 0}
 --- !u!61 &8916143201891090707
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -217,3 +220,16 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &1357786698536444858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8812005988179358895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71967e44c97c4374bbb01fb33121c090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIndex: 0

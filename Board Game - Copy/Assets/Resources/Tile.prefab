@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 7777261074964478300}
   - component: {fileID: 7948271032933347242}
   - component: {fileID: 5631569860242811781}
+  - component: {fileID: 161841857010275227}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -380,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac6342234def0e4f864a0b00696acef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 21300000, guid: 07aab2707b8d0304eba400c913b08389, type: 3}
+  tileIndex: 0
   distance: 0.1
   mask:
     serializedVersion: 2
@@ -423,3 +424,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbf75804b3ba454d90e332a573242f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startDrag: 0
+  smoothing: 0.1
+  count: 0
+  view: {fileID: 0}
+  thisPlayer: {fileID: 0}
+--- !u!114 &161841857010275227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087188048776794968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

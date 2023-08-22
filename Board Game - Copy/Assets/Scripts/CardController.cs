@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 public class CardController : MonoBehaviour {
+    public int cardIndex;
     public GameObject sliderSpawner;
     PhotonView view;
 
@@ -12,7 +13,7 @@ public class CardController : MonoBehaviour {
         if(view.IsMine) {
             GameObject sliderSpawnerGameObject = PhotonNetwork.Instantiate(sliderSpawner.name, Vector3.zero, Quaternion.identity);
             view.RPC("SetParent", RpcTarget.AllBuffered, sliderSpawnerGameObject.GetComponent<PhotonView>().ViewID);
-            view.RPC("SetSprite", RpcTarget.OthersBuffered, transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite);
+            view.RPC("SetSprite", RpcTarget.AllBuffered, cardIndex);
         }
     }
 
@@ -23,7 +24,7 @@ public class CardController : MonoBehaviour {
     }
 
     [PunRPC]
-    void SetSprite(Sprite sprite) {
-        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+    void SetSprite(int index) {
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.FindWithTag("Card Deck").GetComponent<CardDeckController>().possibleCards[index];
     }
 }

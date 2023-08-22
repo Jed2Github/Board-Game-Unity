@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 194505785}
   m_Layer: 0
   m_Name: Tiles
-  m_TagString: Untagged
+  m_TagString: Tile Deck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,10 +166,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: de556c4a58f449b43908dd463774752e, type: 3}
   - {fileID: 21300000, guid: c65e1c44041be324989ca00aba76510d, type: 3}
   - {fileID: 21300000, guid: 97bc235522c749a4e8f7585ae79df240, type: 3}
-  boss: {fileID: 0}
-  item: {fileID: 0}
-  coin: {fileID: 0}
-  skull: {fileID: 0}
+  boss: {fileID: 21300000, guid: 6b1979fe1117669438ddc1059e0fc4c7, type: 3}
+  item: {fileID: 21300000, guid: e9d695f9ca790cf4c8a2416dccabe508, type: 3}
+  coin: {fileID: 21300000, guid: af7171fa3f9cf6b4cbbbde6266ff3609, type: 3}
+  skull: {fileID: 21300000, guid: f2c622b0b832e984e800477ef4568dec, type: 3}
   tilePrefab: {fileID: 8087188048776794968, guid: c7c45701a1012e541a672c49f6889d3d, type: 3}
 --- !u!61 &194505786
 BoxCollider2D:
@@ -195,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!212 &194505787
 SpriteRenderer:
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 1350662138}
   m_Layer: 0
   m_Name: Deck
-  m_TagString: Untagged
+  m_TagString: Card Deck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 1864678697}
   m_Layer: 0
   m_Name: Items
-  m_TagString: Untagged
+  m_TagString: Item Deck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

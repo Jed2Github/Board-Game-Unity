@@ -5,7 +5,7 @@ using Photon.Pun;
 using TMPro;
 
 public class ItemController : MonoBehaviour {
-    public Item item;
+    public int itemIndex;
     PhotonView view;
 
     Transform GFX;
@@ -13,12 +13,12 @@ public class ItemController : MonoBehaviour {
     void Start() {
         view = GetComponent<PhotonView>();
         if(view.IsMine) {
-            view.RPC("SetSprite", RpcTarget.OthersBuffered, transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite);
+            view.RPC("SetSprite", RpcTarget.AllBuffered, itemIndex);
         }
     }
 
     [PunRPC]
-    void SetSprite(Sprite sprite) {
-        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+    void SetSprite(int index) {
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = GameObject.FindWithTag("Item Deck").GetComponent<ItemDeckController>().possibleItems[index];
     }
 }

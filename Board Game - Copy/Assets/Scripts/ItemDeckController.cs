@@ -15,7 +15,9 @@ public class ItemDeckController : MonoBehaviour {
     }
 
     public void GenerateItem() {
+        int randInt = Random.Range(0, possibleItems.Length);
         GameObject itemGameObject = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, hand);
-        itemGameObject.GetComponent<Image>().sprite = possibleItems[Random.Range(0, possibleItems.Length)];
+        itemGameObject.GetComponent<Image>().sprite = possibleItems[randInt];
+        itemGameObject.GetComponent<UIItemController>().itemIndex = randInt;
     }
 }

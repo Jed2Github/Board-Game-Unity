@@ -10,9 +10,9 @@ public class Draggable : MonoBehaviour {
     public float smoothing = 0.1f;
     bool dragging = true;
     public int count = 0;
-    PhotonView view;
-    GameObject player;
-    GameObject thisPlayer;
+    public PhotonView view;
+    GameObject player = null;
+    public GameObject thisPlayer;
     GameObject[] players;
 
     void Start() {
@@ -25,8 +25,10 @@ public class Draggable : MonoBehaviour {
         if(!view.IsMine) {
             dragging = false;
         } else {
-            Debug.Log(thisPlayer);
-            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
+            if(startDrag) {
+                Debug.Log(thisPlayer);
+                view.RPC("SyncPlayers", RpcTarget.AllBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
+            }
         }
     }
 
@@ -36,34 +38,21 @@ public class Draggable : MonoBehaviour {
 
     void OnMouseDrag() {
         if (!dragging) {
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - difference;
-            if(gameObject.tag == "Token") {
-                transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-                Debug.Log("is token");
-            }
-            view.RPC("SyncPlayers", RpcTarget.OthersBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
+            view.RPC("SyncPlayers", RpcTarget.AllBuffered, thisPlayer.GetComponent<PhotonView>().ViewID);
         }
     }
     
     void OnMouseUp() {
-        view.RPC("UnSyncPlayers", RpcTarget.OthersBuffered);
+        view.RPC("UnSyncPlayers", RpcTarget.AllBuffered);
     }
 
     void Update() {
-        if(dragging && startDrag) {
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - difference;
-            if(gameObject.tag == "Token") {
-                transform.position = new Vector3(transform.position.x, transform.position.y, -1);
-                Debug.Log("is token");
-            }
-        }
-
         if(Input.GetMouseButtonDown(0)) {
             count++;
             if(count < 2)
                 return;
             dragging = false;
-            view.RPC("UnSyncPlayers", RpcTarget.OthersBuffered);
+            view.RPC("UnSyncPlayers", RpcTarget.AllBuffered);
         }
 
         if(player != null) {
